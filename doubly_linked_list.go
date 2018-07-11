@@ -73,17 +73,12 @@ func printBackward(node *LinkedListNode) *LinkedListNode {
 
 func main() {
 	var list *LinkedList
-	node1 := LinkedListNode{1, nil, nil}
-	node2 := LinkedListNode{2, nil, nil}
-	node3 := LinkedListNode{3, nil, nil}
-	node4 := LinkedListNode{4, nil, nil}
-	node5 := LinkedListNode{0, nil, nil}
 
-	list = append(&node1, list)
-	list = append(&node2, list)
-	list = append(&node3, list)
-	list = append(&node4, list)
-	list = prepend(&node5, list)
+	list = append(&LinkedListNode{1, nil, nil}, list)
+	list = append(&LinkedListNode{2, nil, nil}, list)
+	list = append(&LinkedListNode{3, nil, nil}, list)
+	list = append(&LinkedListNode{4, nil, nil}, list)
+	list = prepend(&LinkedListNode{0, nil, nil}, list)
 
 	fmt.Println("Forward")
 	printForward(list.head)
