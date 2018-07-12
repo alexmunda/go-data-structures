@@ -15,6 +15,36 @@ type LinkedList struct {
 	tail *LinkedListNode
 }
 
+func remove(val int, list *LinkedList) *LinkedList {
+	cur := list.head
+
+	for {
+		if cur == nil {
+			return list
+		}
+
+		if cur.value == val {
+			if cur.previous == nil {
+				list.head = cur.next
+				list.head.previous = nil
+				return list
+			}
+
+			if cur.next == nil {
+				list.tail = cur.previous
+				list.tail.next = nil
+				return list
+			}
+
+			cur.previous.next = cur.next
+			cur.next.previous = cur.previous
+			return list
+		}
+
+		cur = cur.next
+	}
+}
+
 func append(node *LinkedListNode, list *LinkedList) *LinkedList {
 	if list == nil {
 		list = &LinkedList{node, node}
@@ -72,17 +102,19 @@ func printBackward(node *LinkedListNode) *LinkedListNode {
 }
 
 func main() {
-	var list *LinkedList
-
-	list = append(&LinkedListNode{1, nil, nil}, list)
-	list = append(&LinkedListNode{2, nil, nil}, list)
-	list = append(&LinkedListNode{3, nil, nil}, list)
-	list = append(&LinkedListNode{4, nil, nil}, list)
-	list = prepend(&LinkedListNode{0, nil, nil}, list)
+	var list = append(&LinkedListNode{1, nil, nil}, nil)
+	append(&LinkedListNode{2, nil, nil}, list)
+	append(&LinkedListNode{3, nil, nil}, list)
+	append(&LinkedListNode{4, nil, nil}, list)
+	prepend(&LinkedListNode{0, nil, nil}, list)
 
 	fmt.Println("Forward")
 	printForward(list.head)
 
 	fmt.Println("\nBackward")
 	printBackward(list.tail)
+
+	fmt.Println("\nRemove 1")
+	remove(1, list)
+	printForward(list.head)
 }
