@@ -75,6 +75,22 @@ func prepend(node *LinkedListNode, list *LinkedList) *LinkedList {
 	return list
 }
 
+func find(predicate func(*LinkedListNode) bool, list *LinkedList) *LinkedListNode {
+	cur := list.head
+
+	for {
+		if cur == nil {
+			return nil
+		}
+
+		if predicate(cur) {
+			return cur
+		}
+
+		cur = cur.next
+	}
+}
+
 func printForward(node *LinkedListNode) *LinkedListNode {
 	if node == nil {
 		return nil
@@ -111,10 +127,21 @@ func main() {
 	fmt.Println("Forward")
 	printForward(list.head)
 
-	fmt.Println("\nBackward")
+	fmt.Println("\n\nBackward")
 	printBackward(list.tail)
 
-	fmt.Println("\nRemove 1")
+	fmt.Println("\n\nRemove 1")
 	remove(1, list)
 	printForward(list.head)
+
+	fmt.Println("\n\nFind x -> x == 3")
+	fmt.Println(find(func(node *LinkedListNode) bool {
+		return node.value == 3
+	}, list))
+
+	fmt.Println("\nFind x -> x == 42")
+	fmt.Println(find(func(node *LinkedListNode) bool {
+		return node.value == 42
+	}, list))
+
 }
